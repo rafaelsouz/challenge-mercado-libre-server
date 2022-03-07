@@ -1,14 +1,12 @@
 import { Router } from 'express';
 
+import { ItemController } from '../controller/ItemsController';
+
 const itemsRouter = Router();
 
-itemsRouter.get('/', async (req, res) => {
-  const { q: query } = req.query;
+const itemsController = new ItemController();
 
-  return res.json({
-    query
-  });
-});
+itemsRouter.get('/', itemsController.index);
 
 itemsRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
