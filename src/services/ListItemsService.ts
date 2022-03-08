@@ -1,6 +1,15 @@
 import { api } from '../api';
 
-type Announcements = {
+type Announcement = {
+  id: string;
+  title: string;
+  price: number;
+  currency_id: string;
+  thumbnail: string;
+  condition: string;
+  shipping: {
+    free_shipping: boolean;
+  };
   seller: {
     eshop: {
       nick_name: string;
@@ -8,13 +17,32 @@ type Announcements = {
   };
 };
 
+type Filters = {
+  id: string;
+  name: string;
+  type: string;
+  values: [
+    {
+      id: string;
+      name: string;
+      path_from_root: [
+        {
+          id: string;
+          name: string;
+        }
+      ];
+    }
+  ];
+};
+
 type ResponseAPI = {
-  results: Announcements[];
+  filters: Filters[];
+  results: Announcement[];
 };
 
 class ListItemsService {
-  public async execute(search: string): Promise<ResponseAPI[]> {
-    let announcements;
+  public async execute(search: string): Promise<ResponseAPI> {
+    let announcements: ResponseAPI;
 
     await api
       .get<ResponseAPI>(`sites/MLA/search?q=${search}`)
