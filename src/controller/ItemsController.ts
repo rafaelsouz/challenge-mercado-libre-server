@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 
 import { ListItemsService } from '../services/ListItemsService';
+import { ShowDescriptionItemService } from '../services/ShowDescriptionItemService';
+import { ShowItemService } from '../services/ShowItemService';
 import { separatorAmountDecimals } from '../utils/separatorAmountDecimals';
 
 class ItemController {
@@ -56,7 +58,17 @@ class ItemController {
     return res.json(announcementsFormatted);
   }
 
-  async show(req: Request, res: Response): Promise<Response> {}
+  async show(req: Request, res: Response): Promise<Response> {
+    const showItem = new ShowItemService();
+    const showDescriptionItem = new ShowDescriptionItemService();
+
+    const { id } = req.params;
+
+    const detailsItem = await showItem.execute(id);
+    const descriptionItem = await showDescriptionItem.execute(id);
+
+    return res.json(descriptionItem);
+  }
 }
 
 export { ItemController };

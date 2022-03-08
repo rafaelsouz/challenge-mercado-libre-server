@@ -1,12 +1,12 @@
 import { api } from '../api';
 import { DescriptionAnnouncement } from './types';
 
-class ListItemsService {
+class ShowDescriptionItemService {
   public async execute(id: string): Promise<DescriptionAnnouncement> {
-    let item: ResponseAPI;
+    let item: DescriptionAnnouncement;
 
     await api
-      .get<ResponseAPI>(`items/${id}/description`)
+      .get<DescriptionAnnouncement>(`items/${id}/description`)
       .then((res) => {
         item = res.data;
       })
@@ -18,4 +18,4 @@ class ListItemsService {
   }
 }
 
-export { ListItemsService };
+export { ShowDescriptionItemService };
