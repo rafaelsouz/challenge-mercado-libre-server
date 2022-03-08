@@ -8,12 +8,15 @@ export type Announcement = {
   shipping: {
     free_shipping: boolean;
   };
-  seller: {
-    eshop: {
-      nick_name: string;
-    };
-  };
 };
+
+export type DetailsAnnouncement = {
+  sold_quantity: number;
+} & Announcement;
+
+export type DetailsAnnouncementWithDescription = {
+  description?: string;
+} & DetailsAnnouncement;
 
 export type Filters = {
   id: string;
@@ -41,7 +44,3 @@ export type Announcements = {
 export type DescriptionAnnouncement = {
   plain_text: string;
 };
-
-export type DetailsAnnouncement = {
-  sold_quantity: number;
-} & Announcement;

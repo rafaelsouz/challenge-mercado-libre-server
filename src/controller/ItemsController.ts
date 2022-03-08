@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 
+import { AnnouncementResource } from '../resources/AnnouncementResource';
+import { DetailsAnnouncementResource } from '../resources/DetailsAnnouncementResource';
 import { ListItemsService } from '../services/ListItemsService';
 import { ShowDescriptionItemService } from '../services/ShowDescriptionItemService';
 import { ShowItemService } from '../services/ShowItemService';
-import { separatorAmountDecimals } from '../utils/separatorAmountDecimals';
 
 class ItemController {
   async index(req: Request, res: Response): Promise<Response> {
@@ -29,20 +30,7 @@ class ItemController {
 
     const announcementItemsFormatted = announcementsFiltered.map(
       (announcement) => {
-        const [amount, decimals] = separatorAmountDecimals(announcement.price);
-
-        return {
-          id: announcement.id,
-          title: announcement.title,
-          price: {
-            currency: announcement.currency_id,
-            amount,
-            decimals: decimals || ''
-          },
-          picture: announcement.thumbnail,
-          condition: announcement.condition,
-          free_shipping: announcement.shipping.free_shipping
-        };
+        return new AnnouncementResource(announcement).parse();
       }
     );
 
@@ -67,7 +55,16 @@ class ItemController {
     const detailsItem = await showItem.execute(id);
     const descriptionItem = await showDescriptionItem.execute(id);
 
-    return res.json(descriptionItem);
+    const itemComplete = {
+      ...detailsItem,
+      description: descriptionItem.plain_text
+    };
+
+    const detailsItemFormatted = new DetailsAnnouncementResource(
+      itemComplete
+    ).parse();
+
+    return res.json(detailsItemFormatted);
   }
 }
 
