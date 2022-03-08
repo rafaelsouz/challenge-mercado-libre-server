@@ -10,7 +10,6 @@ class ShowItemService {
       return data;
     } catch (err) {
       throw new AppError(err.response.data.message, err.response.data.status);
-      // throw new Error(err.response.data.message);
     }
   }
 }
