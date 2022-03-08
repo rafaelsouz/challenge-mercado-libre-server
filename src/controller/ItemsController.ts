@@ -24,6 +24,7 @@ class ItemController {
     const announcementsFiltered = announcements.results.filter(
       (_, index) => index < 4
     );
+
     const announcementItemsFormatted = announcementsFiltered.map(
       (announcement) => {
         const [amount, decimals] = separatorAmountDecimals(announcement.price);
@@ -55,7 +56,7 @@ class ItemController {
     return res.json(announcementsFormatted);
   }
 
-  // async show(req: Request, res: Response): Promise<Response> {}
+  async show(req: Request, res: Response): Promise<Response> {}
 }
 
 export { ItemController };
