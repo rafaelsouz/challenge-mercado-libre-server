@@ -1,20 +1,18 @@
 import { api } from '../api';
+import { AppError } from '../errors/AppError';
 import { Announcements } from './types';
 
 class ListItemsService {
   public async execute(search: string): Promise<Announcements> {
-    let announcements: Announcements;
+    try {
+      const { data } = await api.get<Announcements>(
+        `sites/MLA/search?q=${search}`
+      );
 
-    await api
-      .get<Announcements>(`sites/MLA/search?q=${search}`)
-      .then((res) => {
-        announcements = res.data;
-      })
-      .catch((error) => {
-        return error;
-      });
-
-    return announcements;
+      return data;
+    } catch (err) {
+      throw new AppError(err.response.data.message, err.response.data.status);
+    }
   }
 }
 

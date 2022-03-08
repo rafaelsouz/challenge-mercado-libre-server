@@ -1,20 +1,21 @@
 import { api } from '../api';
+import { AppError } from '../errors/AppError';
 import { DescriptionAnnouncement } from './types';
 
 class ShowDescriptionItemService {
   public async execute(id: string): Promise<DescriptionAnnouncement> {
-    let item: DescriptionAnnouncement;
+    try {
+      const { data } = await api.get<DescriptionAnnouncement>(
+        `items/${id}/description`
+      );
 
-    await api
-      .get<DescriptionAnnouncement>(`items/${id}/description`)
-      .then((res) => {
-        item = res.data;
-      })
-      .catch((error) => {
-        return error;
-      });
+      console.log(data);
 
-    return item;
+      return data;
+    } catch (err) {
+      throw new AppError(err.response.data.message, err.response.data.status);
+      // throw new Error(err.response.data.message);
+    }
   }
 }
 

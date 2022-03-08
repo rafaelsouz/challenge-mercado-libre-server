@@ -52,8 +52,10 @@ class ItemController {
 
     const { id } = req.params;
 
-    const detailsItem = await showItem.execute(id);
-    const descriptionItem = await showDescriptionItem.execute(id);
+    const [detailsItem, descriptionItem] = await Promise.all([
+      showItem.execute(id),
+      showDescriptionItem.execute(id)
+    ]);
 
     const itemComplete = {
       ...detailsItem,
