@@ -9,8 +9,6 @@ class ShowDescriptionItemService {
         `items/${id}/description`
       );
 
-      console.log(data);
-
       return data;
     } catch (err) {
       throw new AppError(err.response.data.message, err.response.data.status);
