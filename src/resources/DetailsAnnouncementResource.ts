@@ -16,8 +16,8 @@ class DetailsAnnouncementResource {
       title: this.data.title,
       price: {
         currency: this.data.currency_id,
-        amount,
-        decimals: decimals || ''
+        amount: Number(amount),
+        decimals: Number(decimals) || 0
       },
       picture: this.data.thumbnail,
       condition: this.data.condition,
