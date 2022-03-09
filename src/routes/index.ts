@@ -4,6 +4,6 @@ import { itemsRouter } from './items.routes';
 
 const routes = Router();
 
-routes.use('/items', itemsRouter);
+routes.use('/api/items', itemsRouter);
 
 export default routes;
