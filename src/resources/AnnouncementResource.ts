@@ -21,7 +21,8 @@ class AnnouncementResource {
       },
       picture: this.data.thumbnail,
       condition: this.data.condition,
-      free_shipping: this.data.shipping.free_shipping
+      free_shipping: this.data.shipping.free_shipping,
+      location: this.data.address.state_name
     };
   }
 }

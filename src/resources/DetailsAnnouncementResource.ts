@@ -19,7 +19,7 @@ class DetailsAnnouncementResource {
         amount: Number(amount),
         decimals: Number(decimals) || 0
       },
-      picture: this.data.thumbnail,
+      picture: this.data.pictures[0].url,
       condition: this.data.condition,
       free_shipping: this.data.shipping.free_shipping,
       sold_quantity: this.data.sold_quantity,

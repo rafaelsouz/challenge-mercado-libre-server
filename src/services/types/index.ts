@@ -8,10 +8,16 @@ export type Announcement = {
   shipping: {
     free_shipping: boolean;
   };
+  address: {
+    state_name: string;
+  };
 };
 
 export type DetailsAnnouncement = {
   sold_quantity: number;
+  pictures: {
+    url: string;
+  }[];
 } & Announcement;
 
 export type DetailsAnnouncementWithDescription = {

@@ -70,7 +70,15 @@ class ItemController {
       itemComplete
     ).parse();
 
-    return res.json(detailsItemFormatted);
+    const announcementFormatted = {
+      author: {
+        name: 'Rafael',
+        lastname: 'Souza'
+      },
+      item: detailsItemFormatted
+    };
+
+    return res.json(announcementFormatted);
   }
 }
 
