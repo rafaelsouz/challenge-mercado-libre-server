@@ -14,15 +14,19 @@ class ItemController {
 
     const announcements = await listItems.execute(search);
 
-    const { values } = announcements.filters.find(
-      (filter) => filter.id === 'category'
+    const filterCategories = announcements.filters.find(
+      (filter) => filter.id && filter.id === 'category'
     );
 
-    const categories = values
-      .map(({ path_from_root }) => {
-        return path_from_root.map((path) => path.name);
-      })
-      .flat();
+    let categories: string[] = [];
+
+    if (filterCategories) {
+      categories = filterCategories.values
+        .map(({ path_from_root }) => {
+          return path_from_root.map((path) => path.name);
+        })
+        .flat();
+    }
 
     const announcementsFiltered = announcements.results.filter(
       (_, index) => index < 4

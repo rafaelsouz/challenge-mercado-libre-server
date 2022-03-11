@@ -37,7 +37,7 @@ export type Filters = {
 };
 
 export type Announcements = {
-  filters: Filters[];
+  filters: Filters[] | [];
   results: Announcement[];
 };
 

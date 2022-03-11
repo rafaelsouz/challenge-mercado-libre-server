@@ -1,5 +1,5 @@
 const separatorAmountDecimals = (value: number) => {
-  return value.toString().split('.');
+  return value.toFixed(2).split('.');
 };
 
 export { separatorAmountDecimals };
